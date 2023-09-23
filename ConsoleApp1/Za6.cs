@@ -55,29 +55,38 @@ public class Za6 : IProgramModule
         Z = Z.Distinct().ToArray();
         W = W.Distinct().ToArray();
 
+        string? output = null;
+        
+        Console.WriteLine(" X\t Y\t W\t Z");
+        output += " X\t Y\t W\t Z\n";
+        
         for (int i = 0; i < Y.Length; i++)
         {
-            Console.Write(Y[i] + " ");
-            Console.Write(Z[i] + " ");
-            Console.Write(W[i] + " ");
+            Console.Write(data[i] + "\t");
+            output += data[i] + "\t";
+            
+            Console.Write(Y[i] + "\t");
+            output += Y[i] + "\t";
+            
+            if (W.Length - 1 > i)
+            {
+                Console.Write(W[i] +  "\t"); 
+                output += W[i] + "\t";
+            }
+            
+            if (Z.Length - 1 > i)
+            {
+                Console.Write(Z[i]);
+                output += Z[i] + "\t";
+            }
+            
+            Console.Write("\n");
+            output += "\n";
+            
         }
         
-        foreach (var i in Y)
-        {
-            Console.Write(i + " ");
-        }
-
-        Console.Write("\n");
-        foreach (var i in Z)
-        {
-            Console.Write(i + " ");
-        }
-
-        Console.Write("\n");
-        foreach (var i in W)
-        {
-            Console.Write(i + " ");
-        }
+        File.WriteAllText("Output.txt", output);
+        
     }
 
     int GetNumberCount(int x)

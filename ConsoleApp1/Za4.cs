@@ -1,5 +1,3 @@
-using System.Globalization;
-
 namespace ConsoleApp1;
 
 public class Za4 : IProgramModule
