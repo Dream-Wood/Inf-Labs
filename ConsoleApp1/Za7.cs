@@ -2,6 +2,8 @@ namespace ConsoleApp1;
 
 public class Za7: IProgramModule
 {
+    //жопа - жопа - член
+
     public void Run()
     {
 
