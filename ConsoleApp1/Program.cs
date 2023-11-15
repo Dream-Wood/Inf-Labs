@@ -22,6 +22,12 @@ while (true)
             module = new Za5(); break;
         case 6:
             module = new Za6(); break;
+        case 8:
+            module = new Za9(); break;
+        case 9:
+            module = new Za9(); break;
+        case 10:
+            module = new Za10(); break;
         default:
             Console.WriteLine("Нет такого номера!");
             continue;

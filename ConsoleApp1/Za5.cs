@@ -26,9 +26,11 @@ public class Za5 : IProgramModule
                 throw new Exception("Invalid number");
             }
 
+            select--;
+            
             var arrMask = arr.Distinct().ToArray();
 
-            if (select > arrMask.Length)
+            if (select + 1 > arrMask.Length)
             {
                 foreach (var el in arr)
                 {
