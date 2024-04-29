@@ -1,6 +1,6 @@
 ﻿using ConsoleApp1;
 
-IProgramModule module = new Za1();
+IProgramModule module = new L1Za1();
 
 while (true)
 {
@@ -11,7 +11,7 @@ while (true)
     switch (num)
     {
         case 1:
-            module = new Za1(); break;
+            module = new L1Za1(); break;
         case 2:
             module = new Za2(); break;
         case 3:
