@@ -13,7 +13,7 @@ while (true)
         case 1:
             module = new L1Za1(); break;
         case 2:
-            module = new Za2(); break;
+            module = new L1Za2(); break;
         case 3:
             module = new Za3(); break;
         case 4:
@@ -22,12 +22,6 @@ while (true)
             module = new Za5(); break;
         case 6:
             module = new Za6(); break;
-        case 8:
-            module = new Za9(); break;
-        case 9:
-            module = new Za9(); break;
-        case 10:
-            module = new Za10(); break;
         default:
             Console.WriteLine("Нет такого номера!");
             continue;
