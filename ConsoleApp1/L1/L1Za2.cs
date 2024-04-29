@@ -122,7 +122,7 @@ public class L1Za2 : IProgramModule
         bool read = false;
         bool end = false;
 
-        foreach (var line in File.ReadAllLines("L1Za1.txt"))
+        foreach (var line in File.ReadAllLines("L1Za2.txt"))
         {
             if (begin)
             {
