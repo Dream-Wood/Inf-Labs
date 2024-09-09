@@ -14,6 +14,11 @@ public abstract class Place
             {
                 throw new ArgumentException("Name must be between 0 and 32 characters");
             }
+            
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new ArgumentException("Название места не может быть пустым или null.");
+            }
 
             _name = value;
         }
@@ -26,7 +31,7 @@ public abstract class Place
         {
             if (value < 0)
             {
-                throw new ArgumentException("Population must be a positive number");
+                throw new ArgumentException("Население не может быть отрицательным.");
             }
             
             _population = value;
@@ -35,8 +40,8 @@ public abstract class Place
 
     public Place(string name, int population)
     {
-        _name = name;
-        _population = population;
+        Name = name;
+        Population = population;
     }
 
     public void Random()

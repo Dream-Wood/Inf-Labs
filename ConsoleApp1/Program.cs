@@ -1,133 +1,195 @@
 ﻿namespace ConsoleApp1;
 
+public class InvalidPlaceDataException : Exception
+{
+    public InvalidPlaceDataException(string message) : base(message) { }
+}
+
 public class Program
 {
-    private static void Main()
+    static void Main()
     {
         List<Place> places = new List<Place>();
-        
-        const string filePath = "places.txt";
-        var lines = File.ReadAllLines(filePath);
-        if (File.Exists(filePath))
+        var filePath = "places.txt";
+        var logFilePath = "error_log.txt";
+
+        try
         {
+            var lines = File.ReadAllLines(filePath);
+
             foreach (var line in lines)
             {
-                string[] parts = line.Split(',');
+                var parts = line.Split(',');
 
-                switch (parts[0])
+                try
                 {
-                    case "City":
-                        places.Add(new City(parts[1], int.Parse(parts[2]), parts[3]));
-                        break;
-                    case "Megapolis":
-                        places.Add(new Megapolis(parts[1], int.Parse(parts[2]), parts[3], int.Parse(parts[4])));
-                        break;
-                    case "Village":
-                        places.Add(new Village(parts[1], int.Parse(parts[2]), parts[3]));
-                        break;
-                    case "Farmstead":
-                        places.Add(new Farmstead(parts[1], int.Parse(parts[2]), parts[3], parts[4]));
-                        break;
+                    switch (parts[0])
+                    {
+                        case "City":
+                            places.Add(new City(parts[1], int.Parse(parts[2]), parts[3]));
+                            break;
+                        case "Megapolis":
+                            places.Add(new Megapolis(parts[1], int.Parse(parts[2]), parts[3], int.Parse(parts[4])));
+                            break;
+                        case "Village":
+                            places.Add(new Village(parts[1], int.Parse(parts[2]), parts[3]));
+                            break;
+                        case "Farmstead":
+                            places.Add(new Farmstead(parts[1], int.Parse(parts[2]), parts[3], parts[4]));
+                            break;
+                        default:
+                            throw new InvalidPlaceDataException($"Неизвестный тип места: {parts[0]}");
+                    }
+                }
+                catch (ArgumentException ex)
+                {
+                    LogError(logFilePath, $"Ошибка данных: {ex.Message} - строка: {line}");
+                }
+                catch (InvalidPlaceDataException ex)
+                {
+                    LogError(logFilePath, $"Некорректные данные: {ex.Message} - строка: {line}");
                 }
             }
+
+            // 3. Демонстрация работы методов
+            foreach (var place in places)
+            {
+                place.Description();
+                place.Info();
+                Console.WriteLine();
+            }
         }
-        else
+        catch (FileNotFoundException ex)
         {
-            Console.WriteLine("Файл не найден.");
-            return;
+            LogError(logFilePath, $"Файл не найден: {ex.Message}");
         }
-        
-        foreach (Place place in places)
+        catch (UnauthorizedAccessException ex)
         {
-            place.Description();
-            place.Info();
-            Console.WriteLine();
+            LogError(logFilePath, $"Нет доступа к файлу: {ex.Message}");
+        }
+        catch (Exception ex)
+        {
+            LogError(logFilePath, $"Общая ошибка: {ex.Message}");
+        }
+    }
+    
+    static void LogError(string logFilePath, string message)
+    {
+        try
+        {
+            File.AppendAllText(logFilePath, $"{DateTime.Now}: {message}\n");
+        }
+        catch (Exception ex)
+        {
+            Console.WriteLine($"Не удалось записать в лог: {ex.Message}");
         }
     }
 }
 
 class City : Place
+{
+    public string Mayor { get; set; }
+
+    public City(string name, int population, string mayor) : base(name, population)
     {
-        public string Mayor { get; set; }
-
-        public City(string name, int population, string mayor) : base(name, population)
+        if (string.IsNullOrWhiteSpace(mayor))
         {
-            Mayor = mayor;
+            throw new InvalidPlaceDataException("Имя мэра не может быть пустым.");
         }
 
-        public override void Description()
-        {
-            Console.WriteLine($"{Name} - это город с населением {Population} и мэром {Mayor}.");
-        }
-
-        public override void Info()
-        {
-            base.Info();
-            Console.WriteLine($"Мэр города: {Mayor}");
-        }
+        Mayor = mayor;
     }
 
-    class Megapolis : City
+    public override void Description()
     {
-        public int NumberOfDistricts { get; set; }
-
-        public Megapolis(string name, int population, string mayor, int numberOfDistricts)
-            : base(name, population, mayor)
-        {
-            NumberOfDistricts = numberOfDistricts;
-        }
-
-        public override void Description()
-        {
-            Console.WriteLine($"{Name} - это мегаполис с населением {Population}, мэром {Mayor} и {NumberOfDistricts} районами.");
-        }
-
-        public override void Info()
-        {
-            base.Info();
-            Console.WriteLine($"Количество районов: {NumberOfDistricts}");
-        }
+        Console.WriteLine($"{Name} - это город с населением {Population} и мэром {Mayor}.");
     }
 
-    class Village : Place
+    public override void Info()
     {
-        public string Elder { get; set; }
+        base.Info();
+        Console.WriteLine($"Мэр города: {Mayor}");
+    }
+}
 
-        public Village(string name, int population, string elder) : base(name, population)
+class Megapolis : City
+{
+    public int NumberOfDistricts { get; set; }
+
+    public Megapolis(string name, int population, string mayor, int numberOfDistricts)
+        : base(name, population, mayor)
+    {
+        if (numberOfDistricts <= 0)
         {
-            Elder = elder;
+            throw new ArgumentException("Количество районов должно быть положительным.");
         }
 
-        public override void Description()
-        {
-            Console.WriteLine($"{Name} - это село с населением {Population}. Староста: {Elder}.");
-        }
-
-        public override void Info()
-        {
-            base.Info();
-            Console.WriteLine($"Староста села: {Elder}");
-        }
+        NumberOfDistricts = numberOfDistricts;
     }
 
-    class Farmstead : Village
+    public override void Description()
     {
-        public string Owner { get; set; }
-
-        public Farmstead(string name, int population, string elder, string owner)
-            : base(name, population, elder)
-        {
-            Owner = owner;
-        }
-
-        public override void Description()
-        {
-            Console.WriteLine($"{Name} - это хутор с населением {Population}. Владельцем является {Owner}, староста: {Elder}.");
-        }
-
-        public override void Info()
-        {
-            base.Info();
-            Console.WriteLine($"Владелец хутора: {Owner}");
-        }
+        Console.WriteLine(
+            $"{Name} - это мегаполис с населением {Population}, мэром {Mayor} и {NumberOfDistricts} районами.");
     }
+
+    public override void Info()
+    {
+        base.Info();
+        Console.WriteLine($"Количество районов: {NumberOfDistricts}");
+    }
+}
+
+class Village : Place
+{
+    public string Elder { get; set; }
+
+    public Village(string name, int population, string elder) : base(name, population)
+    {
+        if (string.IsNullOrWhiteSpace(elder))
+        {
+            throw new InvalidPlaceDataException("Имя старосты не может быть пустым.");
+        }
+
+        Elder = elder;
+    }
+
+    public override void Description()
+    {
+        Console.WriteLine($"{Name} - это село с населением {Population}. Староста: {Elder}.");
+    }
+
+    public override void Info()
+    {
+        base.Info();
+        Console.WriteLine($"Староста села: {Elder}");
+    }
+}
+
+class Farmstead : Village
+{
+    public string Owner { get; set; }
+
+    public Farmstead(string name, int population, string elder, string owner)
+        : base(name, population, elder)
+    {
+        if (string.IsNullOrWhiteSpace(owner))
+        {
+            throw new InvalidPlaceDataException("Имя владельца не может быть пустым.");
+        }
+
+        Owner = owner;
+    }
+
+    public override void Description()
+    {
+        Console.WriteLine(
+            $"{Name} - это хутор с населением {Population}. Владельцем является {Owner}, староста: {Elder}.");
+    }
+
+    public override void Info()
+    {
+        base.Info();
+        Console.WriteLine($"Владелец хутора: {Owner}");
+    }
+}
