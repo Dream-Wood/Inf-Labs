@@ -1,31 +1,91 @@
-﻿using ConsoleApp1;
+﻿namespace ConsoleApp1;
 
-IProgramModule module = new L1Za1();
-
-while (true)
+public class Program
 {
-    Console.WriteLine($"Выберите задание: (1,2,3) ЛР2 и (4,5,6) ЛР 3");
-    
-    if (!int.TryParse(Console.ReadLine(), out int num)) break;
-    
-    switch (num)
+    private static void Main()
     {
-        case 1:
-            module = new L1Za1(); break;
-        case 2:
-            module = new L1Za2(); break;
-        case 3:
-            module = new L1Za3(); break;
-        case 4:
-            module = new Za4(); break;
-        case 5:
-            module = new Za5(); break;
-        case 6:
-            module = new Za6(); break;
-        default:
-            Console.WriteLine("Нет такого номера!");
-            continue;
+        var place = new Place("Kazan", 99);
+        var place2 = new Place("Minsk", 33);
+
+        place.Population = 3000;
+        place.Name = "Moscow";
+        
+        place.Print();
+        place2.Print();
+        
+        Console.WriteLine($"Население в {place} больше чем в {place2} = {place > place2}");
+       
+        place.Random();
+        place.Print();
+    }
+}
+ 
+public class Place
+{
+    private string _name;
+    private int _population;
+
+    public string Name
+    {
+        get => _name;
+        set
+        {
+            if (value.Length is 0 or > 32)
+            {
+                throw new ArgumentException("Name must be between 0 and 32 characters");
+            }
+
+            _name = value;
+        }
     }
 
-    module.Run();
+    public int Population
+    {
+        get => _population;
+        set
+        {
+            if (value < 0)
+            {
+                throw new ArgumentException("Population must be a positive number");
+            }
+            
+            _population = value;
+        }
+    }
+
+    public Place()
+    {
+        throw new NotImplementedException();
+    }
+
+    public Place(string name, int population)
+    {
+        _name = name;
+        _population = population;
+    }
+
+    public void Random()
+    {
+        _population = new Random().Next(0, int.MaxValue);
+    }
+
+    public void Print()
+    {
+        Console.WriteLine($"Name: {Name}, Population: {Population}");
+    }
+
+    public static bool operator >(Place a, Place b)
+    {
+        return a.Population > b.Population;
+    }
+
+    public static bool operator <(Place a, Place b)
+    {
+        return a.Population < b.Population;
+    }
+    
+    public override string ToString()
+    {
+        return _name;
+    }
 }
