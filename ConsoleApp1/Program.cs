@@ -4,88 +4,130 @@ public class Program
 {
     private static void Main()
     {
-        var place = new Place("Kazan", 99);
-        var place2 = new Place("Minsk", 33);
+        List<Place> places = new List<Place>();
+        
+        const string filePath = "places.txt";
+        var lines = File.ReadAllLines(filePath);
+        if (File.Exists(filePath))
+        {
+            foreach (var line in lines)
+            {
+                string[] parts = line.Split(',');
 
-        place.Population = 3000;
-        place.Name = "Moscow";
+                switch (parts[0])
+                {
+                    case "City":
+                        places.Add(new City(parts[1], int.Parse(parts[2]), parts[3]));
+                        break;
+                    case "Megapolis":
+                        places.Add(new Megapolis(parts[1], int.Parse(parts[2]), parts[3], int.Parse(parts[4])));
+                        break;
+                    case "Village":
+                        places.Add(new Village(parts[1], int.Parse(parts[2]), parts[3]));
+                        break;
+                    case "Farmstead":
+                        places.Add(new Farmstead(parts[1], int.Parse(parts[2]), parts[3], parts[4]));
+                        break;
+                }
+            }
+        }
+        else
+        {
+            Console.WriteLine("Файл не найден.");
+            return;
+        }
         
-        place.Print();
-        place2.Print();
-        
-        Console.WriteLine($"Население в {place} больше чем в {place2} = {place > place2}");
-       
-        place.Random();
-        place.Print();
+        foreach (Place place in places)
+        {
+            place.Description();
+            place.Info();
+            Console.WriteLine();
+        }
     }
 }
- 
-public class Place
-{
-    private string _name;
-    private int _population;
 
-    public string Name
+class City : Place
     {
-        get => _name;
-        set
-        {
-            if (value.Length is 0 or > 32)
-            {
-                throw new ArgumentException("Name must be between 0 and 32 characters");
-            }
+        public string Mayor { get; set; }
 
-            _name = value;
+        public City(string name, int population, string mayor) : base(name, population)
+        {
+            Mayor = mayor;
+        }
+
+        public override void Description()
+        {
+            Console.WriteLine($"{Name} - это город с населением {Population} и мэром {Mayor}.");
+        }
+
+        public override void Info()
+        {
+            base.Info();
+            Console.WriteLine($"Мэр города: {Mayor}");
         }
     }
 
-    public int Population
+    class Megapolis : City
     {
-        get => _population;
-        set
+        public int NumberOfDistricts { get; set; }
+
+        public Megapolis(string name, int population, string mayor, int numberOfDistricts)
+            : base(name, population, mayor)
         {
-            if (value < 0)
-            {
-                throw new ArgumentException("Population must be a positive number");
-            }
-            
-            _population = value;
+            NumberOfDistricts = numberOfDistricts;
+        }
+
+        public override void Description()
+        {
+            Console.WriteLine($"{Name} - это мегаполис с населением {Population}, мэром {Mayor} и {NumberOfDistricts} районами.");
+        }
+
+        public override void Info()
+        {
+            base.Info();
+            Console.WriteLine($"Количество районов: {NumberOfDistricts}");
         }
     }
 
-    public Place()
+    class Village : Place
     {
-        throw new NotImplementedException();
+        public string Elder { get; set; }
+
+        public Village(string name, int population, string elder) : base(name, population)
+        {
+            Elder = elder;
+        }
+
+        public override void Description()
+        {
+            Console.WriteLine($"{Name} - это село с населением {Population}. Староста: {Elder}.");
+        }
+
+        public override void Info()
+        {
+            base.Info();
+            Console.WriteLine($"Староста села: {Elder}");
+        }
     }
 
-    public Place(string name, int population)
+    class Farmstead : Village
     {
-        _name = name;
-        _population = population;
-    }
+        public string Owner { get; set; }
 
-    public void Random()
-    {
-        _population = new Random().Next(0, int.MaxValue);
-    }
+        public Farmstead(string name, int population, string elder, string owner)
+            : base(name, population, elder)
+        {
+            Owner = owner;
+        }
 
-    public void Print()
-    {
-        Console.WriteLine($"Name: {Name}, Population: {Population}");
-    }
+        public override void Description()
+        {
+            Console.WriteLine($"{Name} - это хутор с населением {Population}. Владельцем является {Owner}, староста: {Elder}.");
+        }
 
-    public static bool operator >(Place a, Place b)
-    {
-        return a.Population > b.Population;
+        public override void Info()
+        {
+            base.Info();
+            Console.WriteLine($"Владелец хутора: {Owner}");
+        }
     }
-
-    public static bool operator <(Place a, Place b)
-    {
-        return a.Population < b.Population;
-    }
-    
-    public override string ToString()
-    {
-        return _name;
-    }
-}
