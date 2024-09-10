@@ -44,12 +44,6 @@ public abstract class Place
         Population = population;
     }
 
-    public void Random()
-    {
-        _population = new Random().Next(0, int.MaxValue);
-    }
-    
-
     public static bool operator >(Place a, Place b)
     {
         return a.Population > b.Population;

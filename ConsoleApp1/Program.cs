@@ -2,7 +2,9 @@
 
 public class InvalidPlaceDataException : Exception
 {
-    public InvalidPlaceDataException(string message) : base(message) { }
+    public InvalidPlaceDataException(string message) : base(message)
+    {
+    }
 }
 
 public class Program
@@ -26,16 +28,44 @@ public class Program
                     switch (parts[0])
                     {
                         case "City":
-                            places.Add(new City(parts[1], int.Parse(parts[2]), parts[3]));
+                            if (parts.Length > 3)
+                            {
+                                places.Add(new City(parts[1], int.Parse(parts[2]), parts[3]));   
+                            }
+                            else
+                            {
+                                places.Add(new City(parts[1], int.Parse(parts[2])));   
+                            }
                             break;
                         case "Megapolis":
-                            places.Add(new Megapolis(parts[1], int.Parse(parts[2]), parts[3], int.Parse(parts[4])));
+                            if (parts.Length > 4)
+                            {
+                                places.Add(new Megapolis(parts[1], int.Parse(parts[2]), parts[3], int.Parse(parts[4])));
+                            }
+                            else
+                            {
+                                places.Add(new Megapolis(parts[1], int.Parse(parts[2]), parts[3])); 
+                            }
                             break;
                         case "Village":
-                            places.Add(new Village(parts[1], int.Parse(parts[2]), parts[3]));
+                            if (parts.Length > 3)
+                            {
+                                places.Add(new Village(parts[1], int.Parse(parts[2]), parts[3]));
+                            }
+                            else
+                            {
+                                places.Add(new Village(parts[1], int.Parse(parts[2])));
+                            }
                             break;
                         case "Farmstead":
-                            places.Add(new Farmstead(parts[1], int.Parse(parts[2]), parts[3], parts[4]));
+                            if (parts.Length > 3)
+                            {
+                                places.Add(new Farmstead(parts[1], int.Parse(parts[2]), parts[3])); 
+                            }
+                            else
+                            {
+                                places.Add(new Farmstead(parts[1], int.Parse(parts[2])));
+                            }
                             break;
                         default:
                             throw new InvalidPlaceDataException($"Неизвестный тип места: {parts[0]}");
@@ -51,7 +81,6 @@ public class Program
                 }
             }
 
-            // 3. Демонстрация работы методов
             foreach (var place in places)
             {
                 place.Description();
@@ -67,12 +96,8 @@ public class Program
         {
             LogError(logFilePath, $"Нет доступа к файлу: {ex.Message}");
         }
-        catch (Exception ex)
-        {
-            LogError(logFilePath, $"Общая ошибка: {ex.Message}");
-        }
     }
-    
+
     static void LogError(string logFilePath, string message)
     {
         try
@@ -92,12 +117,11 @@ class City : Place
 
     public City(string name, int population, string mayor) : base(name, population)
     {
-        if (string.IsNullOrWhiteSpace(mayor))
-        {
-            throw new InvalidPlaceDataException("Имя мэра не может быть пустым.");
-        }
-
         Mayor = mayor;
+    }
+
+    public City(string name, int population) : base(name, population)
+    {
     }
 
     public override void Description()
@@ -119,12 +143,12 @@ class Megapolis : City
     public Megapolis(string name, int population, string mayor, int numberOfDistricts)
         : base(name, population, mayor)
     {
-        if (numberOfDistricts <= 0)
-        {
-            throw new ArgumentException("Количество районов должно быть положительным.");
-        }
-
         NumberOfDistricts = numberOfDistricts;
+    }
+
+    public Megapolis(string name, int population, string mayor)
+        : base(name, population, mayor)
+    {
     }
 
     public override void Description()
@@ -153,6 +177,10 @@ class Village : Place
 
         Elder = elder;
     }
+    
+    public Village(string name, int population) : base(name, population)
+    {
+    }
 
     public override void Description()
     {
@@ -166,25 +194,24 @@ class Village : Place
     }
 }
 
-class Farmstead : Village
+class Farmstead : Place
 {
     public string Owner { get; set; }
 
-    public Farmstead(string name, int population, string elder, string owner)
-        : base(name, population, elder)
+    public Farmstead(string name, int population, string owner)
+        : base(name, population)
     {
-        if (string.IsNullOrWhiteSpace(owner))
-        {
-            throw new InvalidPlaceDataException("Имя владельца не может быть пустым.");
-        }
-
         Owner = owner;
+    }
+
+    public Farmstead(string name, int population) : base(name, population)
+    {
     }
 
     public override void Description()
     {
         Console.WriteLine(
-            $"{Name} - это хутор с населением {Population}. Владельцем является {Owner}, староста: {Elder}.");
+            $"{Name} - это хутор с населением {Population}. Владельцем является {Owner}.");
     }
 
     public override void Info()
