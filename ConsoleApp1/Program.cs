@@ -43,15 +43,18 @@ public class Program
                 }
                 catch (ArgumentException ex)
                 {
-                    LogError(logFilePath, $"Ошибка данных: {ex.Message} - строка: {line}");
+                    LogError(logFilePath, ex.ToString());
                 }
                 catch (InvalidPlaceDataException ex)
                 {
-                    LogError(logFilePath, $"Некорректные данные: {ex.Message} - строка: {line}");
+                    LogError(logFilePath, ex.ToString());
+                }
+                catch (NullReferenceException ex)
+                {
+                    LogError(logFilePath, ex.ToString());
                 }
             }
-
-            // 3. Демонстрация работы методов
+            
             foreach (var place in places)
             {
                 place.Description();
@@ -65,16 +68,20 @@ public class Program
         }
         catch (UnauthorizedAccessException ex)
         {
-            LogError(logFilePath, $"Нет доступа к файлу: {ex.Message}");
+            LogError(logFilePath, ex.ToString());
         }
         catch (Exception ex)
         {
-            LogError(logFilePath, $"Общая ошибка: {ex.Message}");
+            LogError(logFilePath, ex.ToString());
         }
     }
     
     static void LogError(string logFilePath, string message)
     {
+        Console.WriteLine("-------------------");
+        Console.WriteLine(message);
+        Console.WriteLine("-------------------");
+
         try
         {
             File.AppendAllText(logFilePath, $"{DateTime.Now}: {message}\n");

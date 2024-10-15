@@ -5,3 +5,96 @@
 09.09.2024 16:19:41: Некорректные данные: Неизвестный тип места: Megapolis - строка: Megapolis,Токио,37435191,Юрико Коикэ,23
 09.09.2024 16:19:41: Ошибка данных: Население не может быть отрицательным. - строка: Village,Село Ивановка,500,Пётр Петров
 09.09.2024 16:20:30: Некорректные данные: Неизвестный тип места: Megapolis - строка: Megapolis,Токио,37435191,Юрико Коикэ,23
+08.10.2024 9:53:49: Файл не найден: Could not find file 'C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\bin\Debug\net8.0\plaes.txt'.
+08.10.2024 9:54:42: Файл не найден: Could not find file 'C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\bin\Debug\net8.0\place.txt'.
+08.10.2024 9:55:51: Некорректные данные: Неизвестный тип места: City - строка: City,Москва,12615279,Сергей Собянин
+08.10.2024 9:55:51: Некорректные данные: Неизвестный тип места: Megapolis - строка: Megapolis,Токио,37435191,Юрико Коикэ,23
+08.10.2024 9:55:51: Некорректные данные: Неизвестный тип места: Village - строка: Village,Село Ивановка,500,Пётр Петров
+08.10.2024 9:55:51: Некорректные данные: Неизвестный тип места: Farmstead - строка: Farmstead,Хутор Ивановский,150,Пётр Петров,Иван Иванов
+08.10.2024 9:56:15: Некорректные данные: Неизвестный тип места: City - строка: City,Москва,12615279,Сергей Собянин
+08.10.2024 9:56:15: Некорректные данные: Неизвестный тип места: Megapolis - строка: Megapolis,Токио,37435191,Юрико Коикэ,23
+08.10.2024 9:56:15: Некорректные данные: Неизвестный тип места: Village - строка: Village,Село Ивановка,500,Пётр Петров
+08.10.2024 9:56:15: Некорректные данные: Неизвестный тип места: Farmstead - строка: Farmstead,Хутор Ивановский,150,Пётр Петров,Иван Иванов
+08.10.2024 9:57:07: Некорректные данные: Имя мэра не может быть пустым. - строка: City,Москва,12615279,Сергей Собянин
+08.10.2024 10:01:04: ConsoleApp1.InvalidPlaceDataException: Имя мэра не может быть пустым.
+   at ConsoleApp1.City..ctor(String name, Int32 population, String mayor) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 101
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 29 Некорректные данные: Имя мэра не может быть пустым. - строка: City,Москва,12615279,Сергей Собянин
+08.10.2024 10:02:32: ConsoleApp1.InvalidPlaceDataException: Имя мэра не может быть пустым.
+   at ConsoleApp1.City..ctor(String name, Int32 population, String mayor) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 101
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 29
+08.10.2024 10:03:44: Файл не найден: Could not find file 'C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\bin\Debug\net8.0\placs.txt'.
+08.10.2024 10:04:24: ConsoleApp1.InvalidPlaceDataException: Неизвестный тип места: City
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 41
+08.10.2024 10:04:24: ConsoleApp1.InvalidPlaceDataException: Неизвестный тип места: Megapolis
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 41
+08.10.2024 10:04:24: ConsoleApp1.InvalidPlaceDataException: Неизвестный тип места: Village
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 41
+08.10.2024 10:04:24: ConsoleApp1.InvalidPlaceDataException: Неизвестный тип места: Farmstead
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 41
+08.10.2024 10:04:24: ConsoleApp1.InvalidPlaceDataException: Неизвестный тип места: City
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 41
+08.10.2024 10:04:24: ConsoleApp1.InvalidPlaceDataException: Неизвестный тип места: Megapolis
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 41
+08.10.2024 10:04:24: ConsoleApp1.InvalidPlaceDataException: Неизвестный тип места: Village
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 41
+08.10.2024 10:04:24: ConsoleApp1.InvalidPlaceDataException: Неизвестный тип места: Farmstead
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 41
+08.10.2024 10:05:02: ConsoleApp1.InvalidPlaceDataException: Имя мэра не может быть пустым.
+   at ConsoleApp1.City..ctor(String name, Int32 population, String mayor) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 100
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 29
+08.10.2024 10:05:53: System.NullReferenceException: Object reference not set to an instance of an object.
+   at ConsoleApp1.Place.set_Name(String value) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 13
+   at ConsoleApp1.Place..ctor(String name, Int32 population) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 43
+   at ConsoleApp1.City..ctor(String name, Int32 population, String mayor) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 96
+   at ConsoleApp1.Megapolis..ctor(String name, Int32 population, String mayor, Int32 numberOfDistricts) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 123
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 32
+08.10.2024 10:07:20: System.NullReferenceException: Object reference not set to an instance of an object.
+   at ConsoleApp1.Place.set_Name(String value) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 13
+   at ConsoleApp1.Place..ctor(String name, Int32 population) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 43
+   at ConsoleApp1.Village..ctor(String name, Int32 population, String elder) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 150
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 35
+08.10.2024 10:08:25: System.NullReferenceException: Object reference not set to an instance of an object.
+   at ConsoleApp1.Place.set_Name(String value) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 13
+   at ConsoleApp1.Place..ctor(String name, Int32 population) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 48
+   at ConsoleApp1.Village..ctor(String name, Int32 population, String elder) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 150
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 35
+08.10.2024 10:09:36: System.NullReferenceException: Object reference not set to an instance of an object.
+   at ConsoleApp1.Place.set_Name(String value) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 13
+   at ConsoleApp1.Place..ctor(String name, Int32 population) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 48
+   at ConsoleApp1.Village..ctor(String name, Int32 population, String elder) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 150
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 35
+08.10.2024 10:09:44: System.NullReferenceException: Object reference not set to an instance of an object.
+   at ConsoleApp1.Place.set_Name(String value) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 13
+   at ConsoleApp1.Place..ctor(String name, Int32 population) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 48
+   at ConsoleApp1.Village..ctor(String name, Int32 population, String elder) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 150
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 35
+08.10.2024 10:10:13: System.NullReferenceException: Object reference not set to an instance of an object.
+   at ConsoleApp1.Place.set_Name(String value) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 13
+   at ConsoleApp1.Place..ctor(String name, Int32 population) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 48
+   at ConsoleApp1.Village..ctor(String name, Int32 population, String elder) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 150
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 35
+08.10.2024 10:11:59: System.ArgumentException: Название места не может быть пустым или null.
+   at ConsoleApp1.Place.set_Name(String value) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 15
+   at ConsoleApp1.Place..ctor(String name, Int32 population) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 43
+   at ConsoleApp1.Village..ctor(String name, Int32 population, String elder) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 150
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 35
+08.10.2024 10:12:10: System.NullReferenceException: Название места не может быть пустым или null.
+   at ConsoleApp1.Place.set_Name(String value) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 15
+   at ConsoleApp1.Place..ctor(String name, Int32 population) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 43
+   at ConsoleApp1.Village..ctor(String name, Int32 population, String elder) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 150
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 35
+08.10.2024 10:12:51: System.NullReferenceException: Название места не может быть пустым или null.
+   at ConsoleApp1.Place.set_Name(String value) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 15
+   at ConsoleApp1.Place..ctor(String name, Int32 population) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 43
+   at ConsoleApp1.Village..ctor(String name, Int32 population, String elder) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 154
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 35
+15.10.2024 9:19:14: System.NullReferenceException: Название места не может быть пустым или null.
+   at ConsoleApp1.Place.set_Name(String value) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 15
+   at ConsoleApp1.Place..ctor(String name, Int32 population) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 43
+   at ConsoleApp1.Village..ctor(String name, Int32 population, String elder) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 154
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 35
+15.10.2024 9:25:09: System.NullReferenceException: Название места не может быть пустым или null.
+   at ConsoleApp1.Place.set_Name(String value) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 15
+   at ConsoleApp1.Place..ctor(String name, Int32 population) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Place.cs:line 43
+   at ConsoleApp1.Village..ctor(String name, Int32 population, String elder) in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 154
+   at ConsoleApp1.Program.Main() in C:\Users\VladG\Desktop\Inf-Labs\ConsoleApp1\Program.cs:line 35

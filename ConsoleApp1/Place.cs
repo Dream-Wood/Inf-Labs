@@ -10,14 +10,14 @@ public abstract class Place
         get => _name;
         set
         {
+            if (string.IsNullOrWhiteSpace(value))
+            {
+                throw new NullReferenceException("Название места не может быть пустым или null.");
+            }
+            
             if (value.Length is 0 or > 32)
             {
                 throw new ArgumentException("Name must be between 0 and 32 characters");
-            }
-            
-            if (string.IsNullOrWhiteSpace(value))
-            {
-                throw new ArgumentException("Название места не может быть пустым или null.");
             }
 
             _name = value;
@@ -43,12 +43,6 @@ public abstract class Place
         Name = name;
         Population = population;
     }
-
-    public void Random()
-    {
-        _population = new Random().Next(0, int.MaxValue);
-    }
-    
 
     public static bool operator >(Place a, Place b)
     {
