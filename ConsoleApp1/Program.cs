@@ -5,99 +5,112 @@ public class InvalidPlaceDataException : Exception
     public InvalidPlaceDataException(string message) : base(message) { }
 }
 
+public class FundsComparer : IComparer<Place>
+{
+    public int Compare(Place? x, Place? y)
+    {
+        if (x == null || y == null) return 0;
+        return -x.Funds.CompareTo(y.Funds);
+    }
+}   
+
 public class Program
 {
     static void Main()
     {
         List<Place> places = new List<Place>();
-        var filePath = "places.txt";
-        var logFilePath = "error_log.txt";
+        
+        places.Add(new City("New York", 3500000, 900000,"Joy"));
+        places.Add(new City("Владивосток", 65000, 123456,"Владик"));
+        places.Add(new City("Тверь", 120065, 35000,"Иван"));
+        places.Add(new City("Архангельск", 1678765,45920, "Никита"));
+        places.Add(new Village("Никель", 20000, 250000,"Захар"));
+        
+        foreach (var p in places)
+        {
+            p.Info();
+        }
+        
+        Console.WriteLine();
+        places.Sort();
+        Console.WriteLine("Сортировка по названию");
+        
+        foreach (var p in places)
+        {
+            p.Info();
+        }
 
-        try
-        {
-            var lines = File.ReadAllLines(filePath);
+        Console.WriteLine();
+        places.Sort(new FundsComparer());
+        Console.WriteLine("Сортировка по кол-ву средств");
 
-            foreach (var line in lines)
-            {
-                var parts = line.Split(',');
+        foreach (var p in places)
+        {
+            p.Info();
+        }
 
-                try
-                {
-                    switch (parts[0])
-                    {
-                        case "City":
-                            places.Add(new City(parts[1], int.Parse(parts[2]), parts[3]));
-                            break;
-                        case "Megapolis":
-                            places.Add(new Megapolis(parts[1], int.Parse(parts[2]), parts[3], int.Parse(parts[4])));
-                            break;
-                        case "Village":
-                            places.Add(new Village(parts[1], int.Parse(parts[2]), parts[3]));
-                            break;
-                        case "Farmstead":
-                            places.Add(new Farmstead(parts[1], int.Parse(parts[2]), parts[3], parts[4]));
-                            break;
-                        default:
-                            throw new InvalidPlaceDataException($"Неизвестный тип места: {parts[0]}");
-                    }
-                }
-                catch (ArgumentException ex)
-                {
-                    LogError(logFilePath, ex.ToString());
-                }
-                catch (InvalidPlaceDataException ex)
-                {
-                    LogError(logFilePath, ex.ToString());
-                }
-                catch (NullReferenceException ex)
-                {
-                    LogError(logFilePath, ex.ToString());
-                }
-            }
-            
-            foreach (var place in places)
-            {
-                place.Description();
-                place.Info();
-                Console.WriteLine();
-            }
-        }
-        catch (FileNotFoundException ex)
+        Stack<string> st = new Stack<string>();
+        
+        
+        st.Push("Слава");
+        st.Push("Владислав");
+        st.Push("Никта");
+
+        foreach (var i in st)
         {
-            LogError(logFilePath, $"Файл не найден: {ex.Message}");
+            Console.WriteLine(i);
         }
-        catch (UnauthorizedAccessException ex)
-        {
-            LogError(logFilePath, ex.ToString());
-        }
-        catch (Exception ex)
-        {
-            LogError(logFilePath, ex.ToString());
-        }
+        
+        Console.WriteLine($"{st.Peek()} на первом месте");
+        
+        var tmp = st.Pop();
+        
+        Console.WriteLine($"{tmp} на достали");
+        
+        st.Push("Захар");
+        
+        Console.WriteLine($" добавили Захара и он {st.Peek()} на первом месте");
+        
+        
+        Console.WriteLine("-----");
+        
+        PlaceContainer container = new PlaceContainer();
+        container.Add(new City("New York", 3500000, 900000,"Joy"));
+        container.Add(new City("Владивосток", 65000, 123456,"Владик"));
+        container.Add(new City("Тверь", 120065, 35000,"Иван"));
+        container.Add(new City("Архангельск", 1678765,45920, "Никита"));
+        container.Add(new Village("Никель", 20000, 250000,"Захар"));
+
+        // Печать всех элементов
+        Console.WriteLine("Все элементы в контейнере:");
+        container.PrintAll();
+
+        // Получение первого и последнего элемента
+        Console.WriteLine($"\nПервый элемент: {container.GetFirst()}");
+        Console.WriteLine($"Последний элемент: {container.GetLast()}");
+
+        // Проверка удаления элемента
+        Place del = new City("Архангельск", 1678765,45920, "Никита");
+        container.Remove(del);
+        container.PrintAll();
+        
+        // Проверка наличия элемента
+        Place searchPerson = new City("Тверь", 120065, 35000, "Иван");
+        Console.WriteLine($"\nКонтейнер содержит {searchPerson.Name}? {container.Contains(searchPerson)}");
+
+        // Очистка контейнера
+        container.Clear();
+        Console.WriteLine("\nКонтейнер после очистки:");
+        container.PrintAll(); 
     }
     
-    static void LogError(string logFilePath, string message)
-    {
-        Console.WriteLine("-------------------");
-        Console.WriteLine(message);
-        Console.WriteLine("-------------------");
-
-        try
-        {
-            File.AppendAllText(logFilePath, $"{DateTime.Now}: {message}\n");
-        }
-        catch (Exception ex)
-        {
-            Console.WriteLine($"Не удалось записать в лог: {ex.Message}");
-        }
-    }
 }
 
 class City : Place
 {
     public string Mayor { get; set; }
 
-    public City(string name, int population, string mayor) : base(name, population)
+    public City(string name, int population, int funds, string mayor) : base(name, population, funds)
     {
         if (string.IsNullOrWhiteSpace(mayor))
         {
@@ -111,20 +124,15 @@ class City : Place
     {
         Console.WriteLine($"{Name} - это город с населением {Population} и мэром {Mayor}.");
     }
-
-    public override void Info()
-    {
-        base.Info();
-        Console.WriteLine($"Мэр города: {Mayor}");
-    }
+    
 }
 
 class Megapolis : City
 {
     public int NumberOfDistricts { get; set; }
 
-    public Megapolis(string name, int population, string mayor, int numberOfDistricts)
-        : base(name, population, mayor)
+    public Megapolis(string name, int population, int funds, string mayor, int numberOfDistricts)
+        : base(name, population, funds,mayor)
     {
         if (numberOfDistricts <= 0)
         {
@@ -139,19 +147,14 @@ class Megapolis : City
         Console.WriteLine(
             $"{Name} - это мегаполис с населением {Population}, мэром {Mayor} и {NumberOfDistricts} районами.");
     }
-
-    public override void Info()
-    {
-        base.Info();
-        Console.WriteLine($"Количество районов: {NumberOfDistricts}");
-    }
+    
 }
 
 class Village : Place
 {
     public string Elder { get; set; }
 
-    public Village(string name, int population, string elder) : base(name, population)
+    public Village(string name, int population, int funds, string elder) : base(name, population, funds)
     {
         if (string.IsNullOrWhiteSpace(elder))
         {
@@ -165,20 +168,15 @@ class Village : Place
     {
         Console.WriteLine($"{Name} - это село с населением {Population}. Староста: {Elder}.");
     }
-
-    public override void Info()
-    {
-        base.Info();
-        Console.WriteLine($"Староста села: {Elder}");
-    }
+    
 }
 
 class Farmstead : Village
 {
     public string Owner { get; set; }
 
-    public Farmstead(string name, int population, string elder, string owner)
-        : base(name, population, elder)
+    public Farmstead(string name, int population,int funds, string elder, string owner)
+        : base(name, population, funds,elder)
     {
         if (string.IsNullOrWhiteSpace(owner))
         {
@@ -193,10 +191,5 @@ class Farmstead : Village
         Console.WriteLine(
             $"{Name} - это хутор с населением {Population}. Владельцем является {Owner}, староста: {Elder}.");
     }
-
-    public override void Info()
-    {
-        base.Info();
-        Console.WriteLine($"Владелец хутора: {Owner}");
-    }
+    
 }
